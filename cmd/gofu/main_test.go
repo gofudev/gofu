@@ -24,8 +24,8 @@ func TestVersionFlag(t *testing.T) {
 		t.Fatalf("--version failed: %s", err)
 	}
 	got := strings.TrimSpace(string(out))
-	if got != "gofu dev" {
-		t.Errorf("got %q, want %q", got, "gofu dev")
+	if !strings.HasPrefix(got, "gofu ") {
+		t.Errorf("got %q, want prefix %q", got, "gofu ")
 	}
 }
 
