@@ -1,0 +1,6 @@
+package runnable_valid
+
+//gofu:runnable
+func Add(a int, b int) int {
+	return a + b
+}
