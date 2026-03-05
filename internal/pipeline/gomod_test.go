@@ -1,8 +1,9 @@
-package cli
+package pipeline
 
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -87,24 +88,12 @@ func TestBuildGoMod(t *testing.T) {
 		Replaces:   []replaceDirective{{OldPath: "example.com/dep", NewPath: "../dep"}},
 	}
 	got := buildGoMod(mod, "/abs/mymod")
-	if !contains(got, "require example.com/dep") && !contains(got, "\texample.com/dep") {
+	if !strings.Contains(got, "example.com/dep") {
 		t.Errorf("missing require for dep:\n%s", got)
 	}
-	if !contains(got, "example.com/dep => /abs/mymod/../dep") && !contains(got, "example.com/dep => /abs/dep") {
-		// filepath.Join resolves the path
+	if !strings.Contains(got, "example.com/dep => /abs/dep") && !strings.Contains(got, "example.com/dep => /abs/mymod/../dep") {
 		t.Errorf("missing resolved replace for dep:\n%s", got)
 	}
-}
-
-func contains(s, substr string) bool {
-	return len(s) >= len(substr) && func() bool {
-		for i := 0; i <= len(s)-len(substr); i++ {
-			if s[i:i+len(substr)] == substr {
-				return true
-			}
-		}
-		return false
-	}()
 }
 
 func TestBinaryName(t *testing.T) {
