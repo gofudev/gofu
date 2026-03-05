@@ -8,12 +8,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `internal/pipeline` package — reusable build pipeline callable from both CLI and server
+- `internal/pipeline` package — reusable build pipeline callable from both CLI and server #1
 
 ### Changed
 
-- `gofu build` / `gofu run` delegate to `pipeline.Build()` instead of owning orchestration
+- `gofu build` / `gofu run` delegate to `pipeline.Build()` instead of owning orchestration #1
 
 ## [v0.1.0]
 
-TODO
+### Added
+
+- `gofu` CLI with `init`, `build`, `run`, and `test` commands
+- `internal/analyzer` — static analysis enforcing the Gofu restricted subset (no goroutines, no channels, no `init`, allowlisted stdlib only)
+- `internal/codegen` — code generation for compiled Gofu binaries
+- `internal/cli` — command implementations with go.mod management
+- `//gofu:allow` and `//gofu:block` directives for fine-grained analysis control
+- `//gofu:runnable` directive for marking exported entry-point functions
+- `//gofu:secret` directive for declaring required credentials
+- `modules/credentials` — credential access API for Gofu programs
+- `modules/http` — HTTP client module with SSRF protection
+- End-to-end test suite (`tests/e2e/`)
+- CI pipeline via GitHub Actions
+- `scripts/publish.sh` for releasing versioned tags
+
+### Fixed
+
+- Version detection to match only root-level tags (not module tags)
