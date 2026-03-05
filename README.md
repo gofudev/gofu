@@ -1,8 +1,8 @@
-# GoFu
+# Gofu
 
 Safe, compiled language for SaaS integrations. Restricted Go subset → static analysis → native binary.
 
-GoFu lets you write Go-like code that compiles to safe, sandboxed native binaries. It restricts the Go language to a safe subset — no arbitrary imports, no unsafe operations, no network access outside approved patterns — then compiles through standard Go tooling.
+Gofu lets you write Go-like code that compiles to safe, sandboxed native binaries. It restricts the Go language to a safe subset — no arbitrary imports, no unsafe operations, no network access outside approved patterns — then compiles through standard Go tooling.
 
 ## Install
 
