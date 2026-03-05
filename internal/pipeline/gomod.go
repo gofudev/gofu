@@ -1,4 +1,4 @@
-package cli
+package pipeline
 
 import (
 	"fmt"
@@ -152,4 +152,45 @@ func binaryName(modulePath string) string {
 		return modulePath[i+1:]
 	}
 	return modulePath
+}
+
+func buildGoMod(mod moduleInfo, absDir string) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, "module gofu-build\n\ngo %s\n\n", mod.GoVersion)
+
+	fmt.Fprintf(&b, "require (\n\t%s v0.0.0\n", mod.ModulePath)
+	for _, rep := range mod.Replaces {
+		ver := "v0.0.0"
+		for _, req := range mod.Requires {
+			if req.Path == rep.OldPath {
+				ver = req.Version
+				break
+			}
+		}
+		if rep.OldVersion != "" {
+			fmt.Fprintf(&b, "\t%s %s\n", rep.OldPath, ver)
+		} else {
+			fmt.Fprintf(&b, "\t%s %s\n", rep.OldPath, ver)
+		}
+	}
+	b.WriteString(")\n\n")
+
+	fmt.Fprintf(&b, "replace (\n\t%s => %s\n", mod.ModulePath, absDir)
+	for _, rep := range mod.Replaces {
+		newPath := rep.NewPath
+		if strings.HasPrefix(newPath, "./") || strings.HasPrefix(newPath, "../") {
+			newPath = filepath.Join(absDir, newPath)
+		}
+		old := rep.OldPath
+		if rep.OldVersion != "" {
+			old += " " + rep.OldVersion
+		}
+		if rep.NewVersion != "" {
+			fmt.Fprintf(&b, "\t%s => %s %s\n", old, newPath, rep.NewVersion)
+		} else {
+			fmt.Fprintf(&b, "\t%s => %s\n", old, newPath)
+		}
+	}
+	b.WriteString(")\n")
+	return b.String()
 }
