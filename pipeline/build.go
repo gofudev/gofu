@@ -1,6 +1,7 @@
 package pipeline
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -86,7 +87,12 @@ func Build(dir, outDir string) (BuildResult, error) {
 
 	build := exec.Command("go", "build", "-o", binPath, ".")
 	build.Dir = tmpDir
+	var buildStderr bytes.Buffer
+	build.Stderr = &buildStderr
 	if err := build.Run(); err != nil {
+		if buildStderr.Len() > 0 {
+			return BuildResult{}, fmt.Errorf("go build failed:\n%s", buildStderr.String())
+		}
 		return BuildResult{}, fmt.Errorf("go build failed: %w", err)
 	}
 
