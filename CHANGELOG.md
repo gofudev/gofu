@@ -8,11 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `internal/pipeline` package — reusable build pipeline callable from both CLI and server #1
-
-### Changed
-
-- `gofu build` / `gofu run` delegate to `pipeline.Build()` instead of owning orchestration #1
+- `pipeline` package — public API (`pipeline.Build`) for running the build pipeline programmatically [#1](https://github.com/gofudev/gofu/pull/1), [#2](https://github.com/gofudev/gofu/pull/2)
 
 ## [v0.1.0]
 
