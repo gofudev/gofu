@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"gofu.dev/gofu/internal/analyzer"
-	"gofu.dev/gofu/internal/pipeline"
+	"gofu.dev/gofu/pipeline"
 )
 
 func BuildBinary(dir string, stderr io.Writer) (string, error) {
