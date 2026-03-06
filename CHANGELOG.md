@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - `pipeline` package — public API (`pipeline.Build`) for running the build pipeline programmatically [#1](https://github.com/gofudev/gofu/pull/1), [#2](https://github.com/gofudev/gofu/pull/2)
 
+### Fixed
+
+- Capture `go build` stderr output in compilation error messages [#3](https://github.com/gofudev/gofu/pull/3)
+
 ## [v0.1.0]
 
 ### Added
