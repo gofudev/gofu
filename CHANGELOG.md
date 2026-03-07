@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - `pipeline` package — public API (`pipeline.Build`) for running the build pipeline programmatically [#1](https://github.com/gofudev/gofu/pull/1), [#2](https://github.com/gofudev/gofu/pull/2)
+- `pipeline.Analyze` and `pipeline.AnalyzeSource` — extract runnable metadata (name, params, returns) from source without building [#4](https://github.com/gofudev/gofu/pull/4)
 
 ### Fixed
 
